@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="card" style="max-width:560px;margin:0 auto;">
+    <h1>Login</h1>
+    <form class="form" (ngSubmit)="submit()">
+      <label class="label">Username</label>
+      <input class="input" [(ngModel)]="username" name="username" required />
+
+      <label class="label">Password</label>
+      <input class="input" [(ngModel)]="password" name="password" type="password" required />
+
+      <button class="btn btn-primary" type="submit" [disabled]="loading">Login</button>
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </form>
+
+    <p class="muted" style="margin-top:12px;">
+      Don't have an account?
+      <a routerLink="/register" class="link">Register</a>
+    </p>
+  </div>
+</div>

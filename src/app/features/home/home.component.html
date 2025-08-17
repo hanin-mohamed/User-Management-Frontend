@@ -1,0 +1,51 @@
+]<div class="container">
+  <div class="topbar">
+    <div class="brand">Users</div>
+  </div>
+
+  <div class="card">
+    <h3>Add User</h3>
+    <div class="row">
+      <input class="input" placeholder="Full name" [(ngModel)]="newUser.fullName" name="fullName" />
+      <input class="input" placeholder="Username" [(ngModel)]="newUser.username" name="username" />
+      <input class="input" placeholder="Email" [(ngModel)]="newUser.email" name="email" />
+      <input class="input" placeholder="Password" [(ngModel)]="newUser.password" name="password" type="password" />
+      <input class="input" placeholder="Salary (optional)" [(ngModel)]="newUser.salary" name="salary" type="number" />
+      <button class="btn btn-primary" (click)="create()">Create</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Users List</h3>
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <div *ngIf="loading">Loading...</div>
+
+    <table class="table" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>Full Name</th><th>Username</th><th>Email</th><th>Salary</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.fullName }}</td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td style="display:flex; gap:8px; align-items:center;">
+            <input class="input" style="max-width:140px" type="number" [(ngModel)]="u.salary" name="salary-{{u.id}}" />
+            <button class="btn btn-outline" (click)="updateSalary(u)">Save</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="remove(u.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+      <button class="btn btn-outline" (click)="prev()" [disabled]="page===0">Prev</button>
+      <span>Page {{ page + 1 }}</span>
+      <button class="btn btn-outline" (click)="next()" [disabled]="(page + 1) * size >= total">Next</button>
+    </div>
+  </div>
+</div>

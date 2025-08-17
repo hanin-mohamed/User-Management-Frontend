@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="card" style="max-width:560px;margin:0 auto;">
+    <h1>Register</h1>
+    <form class="form" (ngSubmit)="submit()">
+      <input class="input" placeholder="Full name" [(ngModel)]="fullName" name="fullName" required />
+      <input class="input" placeholder="Username" [(ngModel)]="username" name="username" required />
+      <input class="input" placeholder="Email" [(ngModel)]="email" name="email" type="email" required />
+      <input class="input" placeholder="Password" [(ngModel)]="password" name="password" type="password" required />
+      <button class="btn btn-primary" type="submit" [disabled]="loading">Create account</button>
+      <div class="error" *ngIf="error">{{ error }}</div>
+      <div class="success" *ngIf="success">{{ success }}</div>
+    </form>
+
+    <p class="muted" style="margin-top:12px;">
+      Already have an account?
+      <a routerLink="/login" class="link">Login</a>
+    </p>
+  </div>
+</div>
