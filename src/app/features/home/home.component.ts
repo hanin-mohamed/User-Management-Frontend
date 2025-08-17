@@ -71,6 +71,25 @@ export class HomeComponent implements OnInit {
       error: (e) => { this.error = e?.error?.message || 'Delete failed'; }
     });
   }
+exportExcel() {
+  this.usersService.exportExcel().subscribe({
+    next: (res) => {
+      const blob = res.body!;
+      let filename = 'users.xlsx';
+      const cd = res.headers.get('Content-Disposition');
+      if (cd) {
+        const m = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(cd);
+        if (m && m[1]) filename = m[1].replace(/['"]/g, '');
+      }
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      window.URL.revokeObjectURL(url);
+    },
+    error: (e) => { this.error = e?.error?.message || 'Export failed'; }
+  });
+}
 
   prev() { if (this.page > 0) { this.page--; this.load(); } }
   next() { if ((this.page + 1) * this.size < this.total) { this.page++; this.load(); } }

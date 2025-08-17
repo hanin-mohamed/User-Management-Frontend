@@ -34,4 +34,11 @@ export class UsersService {
   delete(id: number) {
     return this.http.delete<AppResponse<unknown>>(`${this.base}/${id}`);
   }
+  exportExcel() {
+  return this.http.get(`${this.base}/export`, {
+    observe: 'response',
+    responseType: 'blob'
+  });
+}
+
 }
